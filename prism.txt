@@ -1,0 +1,48 @@
+ npm install prisma typescript tsx @types/node --save-dev
+ npx prisma init
+ Transaction pooler && Session pooler
+development: npx prisma migrate dev --name init
+production:"scripts": {
+    "build": "prisma generate && prisma migrate deploy && next build",
+    "lint": "next lint --no-error-on-warn"
+  },
+
+?pgbouncer=true&connect_limit=1 in DATABASE_URL
+any change in prisma
+npx prisma generate
+
+npx prisma migrate reset
+npx prisma validate
+ npx prisma migrate dev --name addedColsinOrderItem
+
+
+ And you don’t want to create a migration yet, you can just run:
+npx prisma db push
+
+seed data push
+"prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"commonjs\"} prisma/seed.ts"
+  }
+npx prisma db seed
+npx prisma migrate dev --name add-main-image-to-product
+prisma gives u type build on nodemodules as modelnameCreateInput
+
+
+npm install @supabase/auth-helpers-nextjs @supabase/supabase-js
+
+
+
+for creating image 
+
+docker-compose -f docker-compose.test.yml down -v
+
+docker-compose -f docker-compose.test.yml up -d
+
+# Generate and apply migrations
+npx prisma generate
+npx prisma migrate deploy
+
+
+
+any changes npx prisma migrate dev --name "update-schema"
+npx prisma migrate deploy

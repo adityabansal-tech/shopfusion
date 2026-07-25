@@ -1,0 +1,81 @@
+import { BadgePercent } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+export default function LandingPage() {
+  return (
+    <>
+      <section className="relative  bg-[#F6F6F6] md:min-h-[86dvh]   flex items-center ">
+        {/* Dotted Background Decorations */}
+        {/* <img
+          src="/dts"
+          alt="decoration"
+          className="absolute top-0  left-1/2 -translate-x-1/2 w-32 h-16"
+        />
+        <img
+          src="/dts-bottom-left.png"
+          alt="decoration"
+          className="absolute bottom-0 left-1/4 translate-y-1/2 w-32 h-16"
+        /> */}
+
+        <div className="lg:max-w-7xl mx-auto px-6  pt-4  grid grid-cols-1 md:grid-cols-2 2xl: gap-5   items-center">
+          <div>
+            <div className="inline-flex items-center gap-1 bg-white px-4 py-1.5 rounded-full ">
+              {" "}
+              <BadgePercent size={28} fill="#441306" className="text-white" />
+              <span className="md:text-lg font-semibold text-black">
+                50% OFF
+              </span>
+              <span className="md:text-lg  text-black">Summer Super Sale</span>
+            </div>
+
+            <h1 className="mt-3 md:mt-6 max-w-112 text-2xl md:text-4xl font-bold leading-8  lg:leading-tight tracking-tight text-gray-900">
+              Step into Style: Your
+            </h1>
+            <h1 className="md:my-2 text-2xl md:text-4xl font-bold  leading-8 md:leading-tight  tracking-tight text-gray-900">
+              Ultimate Fashion Destination{" "}
+            </h1>
+
+            <p className="mt-4 text-gray-600 leading-relaxed">
+              Explore curated collections built for every season and style.
+              Fresh drops, timeless staples, and everything in between.
+            </p>
+
+            <Link
+              href="/women"
+              className="mt-6 inline-block px-6 py-3 bg-orange-950 text-white rounded hover:bg-[#4a1800] transition"
+            >
+              Shop Now →
+            </Link>
+          </div>
+
+          {/* Right Image & Callout */}
+          <div className="relative">
+            <div className="relative flex items-center justify-center md:items-end   md:justify-end  h-[448px] md:h-full  xl:h-[86dvh]   w-full">
+              <Image
+                src="/dito2.png"
+                // src="/heroine.png"
+                // src="https://res.cloudinary.com/dcfrlqakq/image/upload/f_auto,q_auto,w_1000,c_fill,g_auto,e_sharpen/v1754910154/heroine_bz6uqp.png"
+                alt="Model with sunglasses"
+                width={512}
+                height={512}
+                priority
+                className="w-full h-full max-w-[24rem] lg:max-w-[32rem] 2xl:max-w-full object-cover   lg:object-contain"
+              />
+            </div>
+            {/* Callout Circle */}
+            {/* <div className="absolute top-10 right-4 text-center">
+              <div className="bg-yellow-400 w-24 h-24 rounded-full flex items-center justify-center shadow-lg">
+                <img src="/sunglasses.png" alt="Sunglasses" className="w-10" />
+              </div>
+              <p className="text-xs text-gray-700 mt-2 w-24 rotate-[20deg]">
+                UNIQUE AND GORGEOUS DESIGN
+              </p>
+            </div> */}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

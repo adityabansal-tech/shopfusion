@@ -1,0 +1,192 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Product {
+  id            String           @id @default(cuid())
+  name          String
+  description   String
+  sellingPrice  Decimal
+  stockQty      Int
+  discount      Decimal?
+  categoryId    Int
+  brand         String
+  material      String
+  originCountry String
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  mainImgUrl    String           @default("https://res.cloudinary.com/dcfrlqakq/image/upload/v1753473129/image_1_lapjpe.png")
+  costPrice     Decimal          @default(10.00) @db.Decimal
+  tags          Tag[]
+  cartItems     Cart[]
+  orderItems    OrderItem[]
+  category      Category         @relation(fields: [categoryId], references: [id])
+  colors        ProductColor[]
+  features      ProductFeature[]
+  images        ProductImage[]
+  sizes         ProductSize[]
+  reviews       Review[]
+  wishlistItems WishlistItem[]
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String
+  Product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String?
+}
+
+model ProductImage {
+  id             String        @id @default(cuid())
+  url            String
+  alt            String?
+  productId      String
+  productColorId String?
+  ProductColor   ProductColor? @relation(fields: [productColorId], references: [id], onDelete: Cascade)
+  product        Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProductSize {
+  id        String  @id @default(cuid())
+  productId String
+  size      String
+  stockQty  Int
+  cartItems Cart[]
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProductColor {
+  id        String         @id @default(cuid())
+  productId String
+  color     String
+  hexCode   String?
+  stockQty  Int            @default(1)
+  cartItems Cart[]
+  product   Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  images    ProductImage[]
+}
+
+model ProductFeature {
+  id        String  @id @default(cuid())
+  productId String
+  key       String
+  value     String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  productId  String
+  customerId String
+  rating     Float
+  comment    String
+  createdAt  DateTime @default(now())
+  images     String[]
+  verified   Boolean  @default(false)
+  videos     String?
+  title      String   @default("No title")
+  customer   Customer @relation(fields: [customerId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, customerId])
+}
+
+model Category {
+  id          Int            @id @default(autoincrement())
+  name        GenderCategory
+  description String
+  products    Product[]
+}
+
+model Customer {
+  id            String         @id
+  name          String?
+  email         String?        @unique
+  userAvatarUrl String?
+  provider      String?
+  providerId    String?
+  updatedAt     DateTime       @updatedAt
+  createdAt     DateTime       @default(now())
+  carts         Cart[]
+  orders        Order[]
+  reviews       Review[]
+  wishlistItems WishlistItem[]
+}
+
+model Cart {
+  id         String       @id @default(cuid())
+  customerId String
+  colorId    String
+  createdAt  DateTime     @default(now())
+  itemQty    Int
+  productId  String
+  sizeId     String
+  updatedAt  DateTime     @updatedAt
+  color      ProductColor @relation(fields: [colorId], references: [id])
+  customer   Customer     @relation(fields: [customerId], references: [id])
+  product    Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  size       ProductSize  @relation(fields: [sizeId], references: [id])
+
+  @@unique([customerId, productId, colorId, sizeId])
+}
+
+model WishlistItem {
+  id         String   @id @default(cuid())
+  customerId String
+  productId  String
+  createdAt  DateTime @default(now())
+  customer   Customer @relation(fields: [customerId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([customerId, productId])
+}
+
+model Admin {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  createdAt     DateTime @default(now())
+  userAvatarUrl String?
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  customerId  String
+  totalAmount Decimal
+  status      OrderStatus @default(PENDING)
+  createdAt   DateTime    @default(now())
+  customer    Customer    @relation(fields: [customerId], references: [id])
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id             String   @id @default(cuid())
+  orderId        String
+  productId      String?
+  quantity       Int
+  price          Decimal
+  couponDiscount Decimal?
+  shippingCost   Decimal
+  taxes          Decimal
+  order          Order    @relation(fields: [orderId], references: [id])
+  product        Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+enum GenderCategory {
+  male
+  female
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
