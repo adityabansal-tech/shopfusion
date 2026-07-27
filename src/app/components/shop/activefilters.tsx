@@ -64,7 +64,7 @@ export function ActiveFilters({
 
       {(filters.priceRange[0] !== 25 || filters.priceRange[1] !== 2000) && (
         <div className="flex items-center gap-2 bg-yellow-400 border border-yellow-400  px-2 py-1 text-sm text-black">
-          Price: ${filters.priceRange[0]}.00 - ${filters.priceRange[1]}.00
+          Price: ₹{filters.priceRange[0]}.00 - ₹{filters.priceRange[1]}.00
           <button
             onClick={() => onRemoveFilter("priceRange", 0)}
             className=" pt-0.5 transition-colors"

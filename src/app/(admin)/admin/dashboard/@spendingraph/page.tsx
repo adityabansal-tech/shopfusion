@@ -76,7 +76,7 @@ export default function PieChartComponent() {
                   />
                   <p className="text-gray-400 text-sm">{item.name}</p>
                 </div>
-                <p className=" font-semibold">${item.value.toFixed(2)}</p>
+                <p className=" font-semibold">₹{item.value.toFixed(2)}</p>
               </div>
             ))}
           </div>

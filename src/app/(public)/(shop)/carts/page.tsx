@@ -118,7 +118,7 @@ export default function ShoppingCart() {
                 </div>
 
                 <div className="col-span-2 text-center">
-                  ${Number(item.product.sellingPrice).toFixed(2)}
+                  ₹{Number(item.product.sellingPrice).toFixed(2)}
                 </div>
 
                 <div className="col-span-4 flex justify-center">
@@ -130,7 +130,7 @@ export default function ShoppingCart() {
                 </div>
 
                 <div className="col-span-3 md:col-span-2 text-center">
-                  $
+                  ₹
                   {(Number(item.product.sellingPrice) * item.itemQty).toFixed(
                     2,
                   )}

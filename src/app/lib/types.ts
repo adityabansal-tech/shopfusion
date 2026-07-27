@@ -1,4 +1,4 @@
-export type PaymentMethod = "khalti";
+export type PaymentMethod = "razorpay";
 
 export interface PaymentRequestData {
   amount: string;
@@ -7,21 +7,11 @@ export interface PaymentRequestData {
   method: PaymentMethod;
 }
 
-export interface KhaltiConfigData {
-  return_url: string;
-  website_url: string;
+export interface RazorpayOrderResponse {
+  razorpayOrderId: string;
+  razorpayKeyId: string;
   amount: number;
-  purchase_order_id: string;
-  purchase_order_name: string;
-  customer_info: {
-    name: string;
-    email: string;
-    phone: string;
-  };
-}
-
-export interface KhaltiResponse {
-  khaltiPaymentUrl: string;
+  currency: string;
 }
 
 export interface DummyDataResponse {

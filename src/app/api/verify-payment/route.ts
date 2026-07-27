@@ -1,25 +1,25 @@
 import { NextResponse } from "next/server";
+import crypto from "crypto";
 
 export async function POST(req: Request) {
-  const { pidx } = await req.json();
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json();
 
-  const res = await fetch("https://a.khalti.com/api/v2/epayment/lookup/", {
-    method: "POST",
-    headers: {
-      Authorization: `Key ${process.env.NEXT_PUBLIC_KHALTI_SECRET_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ pidx }),
-  });
+  if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+    return NextResponse.json({ status: "Failed", error: "Missing payment verification fields" }, { status: 400 });
+  }
 
-  const data = await res.json();
+  const generatedSignature = crypto
+    .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
+    .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+    .digest("hex");
 
-  // Return lookup result to client
+  if (generatedSignature !== razorpay_signature) {
+    return NextResponse.json({ status: "Failed", error: "Invalid payment signature" }, { status: 400 });
+  }
+
   return NextResponse.json({
-    status: data.status,
-    totalAmount: data.total_amount,
-    purchase_order_name: data.purchase_order_name,
-    purchase_order_id: data.purchase_order_id,
-    transaction_id: data.transaction_id,
+    status: "Completed",
+    transaction_id: razorpay_payment_id,
+    order_id: razorpay_order_id,
   });
 }

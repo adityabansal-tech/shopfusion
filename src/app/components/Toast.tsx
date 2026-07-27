@@ -71,7 +71,7 @@ export function AddToCartToast({
             </h3>
             <p className="text-sm text-gray-600 mt-1">{color.name}</p>
             <p className="text-sm text-gray-600">{size.name}</p>
-            <p className="font-medium text-gray-900 mt-1">${product.price}</p>
+            <p className="font-medium text-gray-900 mt-1">₹{product.price}</p>
           </div>
         </div>
       </div>

@@ -41,8 +41,8 @@ export default function PaymentPage() {
 
         <div className="space-y-4">
           <label className="flex items-center gap-3 border rounded-md p-3 cursor-pointer hover:bg-gray-50">
-            <input type="radio" name="payment" value="Khalti" defaultChecked />
-            <span>Khalti</span>
+            <input type="radio" name="payment" value="Razorpay" defaultChecked />
+            <span>Razorpay (Cards, UPI, Netbanking, Wallets)</span>
           </label>
 
           <div>

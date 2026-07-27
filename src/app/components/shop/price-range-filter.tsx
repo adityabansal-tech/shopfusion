@@ -59,8 +59,8 @@ export function PriceRangeFilter({
             )}
           />
           <div className="flex mt-2 justify-between">
-            <span>${priceRange[0]} </span>
-            <span>${priceRange[1]} </span>
+            <span>₹{priceRange[0]} </span>
+            <span>₹{priceRange[1]} </span>
           </div>
         </div>
       </div>

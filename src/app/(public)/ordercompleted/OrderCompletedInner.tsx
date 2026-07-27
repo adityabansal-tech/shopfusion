@@ -84,7 +84,7 @@ export default function OrderCompletedInner() {
 
         <div>
           <p className="text-sm text-gray-800">Payment Method</p>
-          <p className="font-semibold text-lg">Khalti</p>
+          <p className="font-semibold text-lg">Razorpay</p>
         </div>
 
         <div>

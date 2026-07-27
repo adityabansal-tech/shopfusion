@@ -145,10 +145,10 @@ export default function ProductDetailsClient({ initialProduct }: { initialProduc
 
                     <div className="flex items-center gap-3 mb-6">
                         <span className="text-3xl font-semibold text-gray-900">
-                            $ {(Number(product?.sellingPrice) + 0).toFixed(2)}
+                            ₹ {(Number(product?.sellingPrice) + 0).toFixed(2)}
                         </span>
                         <span className="text-xl text-gray-500 line-through">
-                            $ {(Number(product?.sellingPrice) + 25).toFixed(2)}
+                            ₹ {(Number(product?.sellingPrice) + 25).toFixed(2)}
                         </span>
                     </div>
 

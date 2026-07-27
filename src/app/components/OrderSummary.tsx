@@ -60,7 +60,7 @@ const OrderSummary = ({
         <div className="flex justify-between items-center">
           <span className="text-gray-600">Sub Total</span>
           <span className="font-medium text-gray-900">
-            ${subtotal.toFixed(2)}
+            ₹{subtotal.toFixed(2)}
           </span>
         </div>
 
@@ -73,13 +73,13 @@ const OrderSummary = ({
 
         <div className="flex justify-between items-center">
           <span className="text-gray-600">Taxes</span>
-          <span className="font-medium text-gray-900">${taxes.toFixed(2)}</span>
+          <span className="font-medium text-gray-900">₹{taxes.toFixed(2)}</span>
         </div>
 
         <div className="flex justify-between items-center">
           <span className="text-gray-600">Coupon Discount</span>
           <span className="font-medium text-gray-900">
-            -${couponDiscount.toFixed(2)}
+            -₹{couponDiscount.toFixed(2)}
           </span>
         </div>
 
@@ -87,7 +87,7 @@ const OrderSummary = ({
 
         <div className="flex justify-between items-center text-lg font-semibold">
           <span className="text-gray-900">Total</span>
-          <span className="text-gray-900">${total.toFixed(2)}</span>
+          <span className="text-gray-900">₹{total.toFixed(2)}</span>
         </div>
       </div>
 
@@ -104,12 +104,12 @@ const OrderSummary = ({
             }
             Payment.setPaymentError("");
             try {
-              // INITIATE PAYMENT
+              // INITIATE PAYMENT — create a Razorpay order
               const res = await fetch("/api/initiate-payment", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                  method: "khalti",
+                  method: "razorpay",
                   amount: payment.amount,
                   productName: payment.productName,
                   transactionId: payment.transactionId,
@@ -120,11 +120,61 @@ const OrderSummary = ({
 
               const data = await res.json();
 
-              if (!data.khaltiPaymentUrl)
-                throw new Error("No payment URL returned");
+              if (!data.razorpayOrderId)
+                throw new Error("No Razorpay order returned");
 
-              // Redirect user to Khalti page
-              window.location.href = data.khaltiPaymentUrl;
+              // Load Razorpay's checkout script if not already loaded
+              if (!(window as any).Razorpay) {
+                await new Promise<void>((resolve, reject) => {
+                  const script = document.createElement("script");
+                  script.src = "https://checkout.razorpay.com/v1/checkout.js";
+                  script.onload = () => resolve();
+                  script.onerror = () =>
+                    reject(new Error("Failed to load Razorpay checkout"));
+                  document.body.appendChild(script);
+                });
+              }
+
+              const options = {
+                key: data.razorpayKeyId,
+                amount: data.amount,
+                currency: data.currency,
+                name: "ShopFusion",
+                description: payment.productName,
+                order_id: data.razorpayOrderId,
+                handler: async function (response: any) {
+                  const verifyRes = await fetch("/api/verify-payment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      razorpay_order_id: response.razorpay_order_id,
+                      razorpay_payment_id: response.razorpay_payment_id,
+                      razorpay_signature: response.razorpay_signature,
+                    }),
+                  });
+
+                  const verifyData = await verifyRes.json();
+
+                  if (verifyData.status === "Completed") {
+                    router.push("/ordercompleted");
+                  } else {
+                    Payment.setPaymentError(
+                      "Payment verification failed. Please contact support."
+                    );
+                  }
+                },
+                modal: {
+                  ondismiss: function () {
+                    Payment.setPaymentError("Payment was cancelled.");
+                  },
+                },
+                theme: {
+                  color: "#4b2e1a",
+                },
+              };
+
+              const rzp = new (window as any).Razorpay(options);
+              rzp.open();
             } catch (err) {
               console.error(err);
               Payment.setPaymentError("Payment initiation failed. Try again.");

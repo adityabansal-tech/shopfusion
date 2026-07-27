@@ -43,8 +43,7 @@ export function Announcement({ setShow }: { setShow: () => void }) {
           >
             Support
           </div>
-          <div>(977)</div>
-          <p>9768445916</p>
+          <p>+0123456789</p>
         </div>
 
         {/* Main Text */}

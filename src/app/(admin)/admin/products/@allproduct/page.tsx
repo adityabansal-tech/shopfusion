@@ -152,7 +152,7 @@ const Page = () => {
 
             {/* Fix Price */}
             <div className="col-span-2 flex items-center justify-end font-bold text-green-400">
-              ${product.sellingPrice}
+              ₹{product.sellingPrice}
             </div>
             <div className="col-span-1 flex items-center justify-center">
               <button
