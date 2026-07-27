@@ -98,9 +98,7 @@ export default function Navbar() {
             <div className="w-6 h-6 md:w-8 md:h-8 bg-orange-950 rounded-full flex items-center justify-center text-white font-bold text-lg">
               S
             </div>
-            <span className="md:text-xl font-semibold">
-              ShopFusion<span className="text-[#4b2e1a]">.</span>
-            </span>
+            <span className="md:text-xl font-semibold">ShopFusion</span>
           </Link>
           {!searchOpen ? (
             /* Menu Links */
@@ -204,7 +202,7 @@ export default function Navbar() {
                   // </div>
                   // <div ref={dropdownRef}>
                   <Link
-                    href="/login"
+                    href="/auth/login"
                     className="md:block absolute hidden -left-4 mt-2 min-w-fit bg-white shadow-lg rounded-lg p-2 z-50"
                   >
                     <p className="text-sm text-gray-500 cursor-pointer hover:text-black">
