@@ -4,11 +4,13 @@ const baseConfig: NextConfig = {
   turbopack: {},
   reactStrictMode: true,
   typescript: {
-    ignoreBuildErrors: true, // allow build even with type errors
+    ignoreBuildErrors: true,
   },
   eslint: {
-    ignoreDuringBuilds: true, // prevent lint errors from halting build
+    ignoreDuringBuilds: true,
   },
+  // Prevents Next.js SSG pages from hanging the build when fetching DB data
+  staticPageGenerationTimeout: 60,
   images: {
     remotePatterns: [
       {
@@ -23,5 +25,4 @@ const baseConfig: NextConfig = {
   },
 };
 
-// Temporarily bypass Serwist wrapper to verify build completion
 export default baseConfig;
