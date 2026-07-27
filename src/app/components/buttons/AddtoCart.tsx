@@ -46,7 +46,7 @@ const AddtoCart = ({
         sizeId: size.id,
         itemQty: Number(quantity),
       };
-      const data = Cart.addToCart(payload);
+      const data = await Cart.addToCart(payload);
 
       setShowToast(true);
 

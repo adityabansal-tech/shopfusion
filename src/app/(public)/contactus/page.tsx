@@ -13,8 +13,8 @@ const Map = dynamic(
 );
 
 const locations = [
-  { id: "1", lat: 27.664906, lng: 85.329345 }, // Gwarko
-  { id: "2", lat: 27.6581, lng: 85.3244 },
+  { id: "1", lat: 28.6562, lng: 77.2410 }, // Pitampura, Delhi
+  { id: "2", lat: 28.6304, lng: 77.2177 },
 ];
 
 function Page() {
@@ -100,7 +100,7 @@ function Page() {
                       {...register("email")}
                       id="email"
                       type="email"
-                      placeholder="exampe@gmail.com"
+                      placeholder="aditya@demo.com"
                       className="mt-2 outline-none  pl-3 py-1  border rounded-sm border-gray-900 w-full"
                     />
                     {errors.email && (
@@ -175,7 +175,7 @@ function Page() {
                   Address
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  4517 Washington Ave. Manchester, Kentucky 39495
+                  123 Pitampura Main Road, Pitampura, New Delhi, Delhi 110034
                 </p>
               </div>
 
@@ -185,8 +185,8 @@ function Page() {
                   Contact
                 </h3>
                 <div className="space-y-2 text-sm text-gray-600">
-                  <p>Phone : +0123-456-789</p>
-                  <p>Email : example@gmail.com</p>
+                  <p>Phone : +0123456789</p>
+                  <p>Email : aditya@demo.com</p>
                 </div>
               </div>
 
@@ -228,9 +228,9 @@ function Page() {
           </div>
           <div className="p-6 w-full">
             <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
-            <p className="mb-4">We’re located in Lalitpur.</p>
+            <p className="mb-4">We’re located in New Delhi.</p>
             <Map
-              center={{ lat: 27.6675, lng: 85.3258 }}
+              center={{ lat: 28.6562, lng: 77.2410 }}
               locations={locations}
             />
           </div>

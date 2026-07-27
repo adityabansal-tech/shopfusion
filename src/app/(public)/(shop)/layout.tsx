@@ -42,7 +42,7 @@ export default function ShopLayout({
 
   useEffect(() => {
     // update amount
-    Payment.setPaymentAmount(String(Math.round(total * 141.81)));
+    Payment.setPaymentAmount(String(total.toFixed(2)));
 
     // generate transactionId only on first load
     Payment.regeneratePaymentTransactionId();

@@ -36,10 +36,10 @@ export default function Page() {
                 className="text-2xl font-light text-foreground mb-2"
                 style={{ fontFamily: "cursive" }}
               >
-                Jenny Alexander
+                Aditya Bansal
               </div>
               <p className="text-sm text-muted-foreground">
-                Jenny Alexander • CEO
+                Aditya Bansal • CEO
               </p>
             </div>
           </div>

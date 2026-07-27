@@ -29,7 +29,7 @@ export const regeneratePaymentTransactionId = () => {
   store.dispatch(
     Actions.set("payment", {
       ...currentPayment,
-      transactionId: `KHALTI-${generateId()}`,
+      transactionId: `TXN-${generateId()}`,
     })
   );
 };

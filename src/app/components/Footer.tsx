@@ -84,18 +84,18 @@ export default function Footer() {
           <ul className="space-y-2 text-sm">
             <li>
               <a href="tel:+0123456789" className="hover:underline">
-                +0123-456-789
+                +0123456789
               </a>
             </li>
             <li>
-              <a href="mailto:example@gmail.com" className="hover:underline">
-                example@gmail.com
+              <a href="mailto:aditya@demo.com" className="hover:underline">
+                aditya@demo.com
               </a>
             </li>
             <li>
-              8502 Ichi Tole.
+              123 Pitampura Main Road,
               <br />
-              Gwarko, 9768445916
+              Pitampura, New Delhi
             </li>
           </ul>
         </div>

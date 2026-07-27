@@ -203,7 +203,14 @@ export default function Navbar() {
                 ) : (
                   // </div>
                   // <div ref={dropdownRef}>
-                  <SignInButton buttonText="Login" />
+                  <Link
+                    href="/login"
+                    className="md:block absolute hidden -left-4 mt-2 min-w-fit bg-white shadow-lg rounded-lg p-2 z-50"
+                  >
+                    <p className="text-sm text-gray-500 cursor-pointer hover:text-black">
+                      Login
+                    </p>
+                  </Link>
                   // </div>
                 ))}
             </div>
