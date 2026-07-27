@@ -1,13 +1,13 @@
-"engines": {
-  "node": "20.x"
-}
 {
   "name": "shopfusion",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "PRISMA_SKIP_POSTINSTALL_GENERATE=true prisma generate && next build"
+    "build": "PRISMA_SKIP_POSTINSTALL_GENERATE=true prisma generate && next build",
     "start": "next start",
     "postinstall": "prisma generate",
     "lint": "next lint --no-error-on-warn",
