@@ -1,22 +1,41 @@
-import { createClient } from "@/utlis/supabase/server";
-import { redirect } from "next/navigation";
+"use client";
 
-export default async function PostAuthLoading() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/utlis/supabase/client";
 
-  // 1. If not logged in, send to login
-  if (!user) {
-    redirect("/login");
-  }
+export default function PostAuthLoading() {
+  const router = useRouter();
+  const supabase = createClient();
 
-  // 2. If it's your admin email, redirect to Admin Panel
-  if (user.email === "adityabansal04031@gmail.com") {
-    redirect("/admin");
-  }
+  useEffect(() => {
+    async function handleRedirect() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-  // 3. Any other user goes to normal home dashboard
-  redirect("/");
+      if (!user) {
+        router.push("/login");
+        return;
+      }
+
+      // Check if it's your admin email
+      if (user.email === "adityabansal04031@gmail.com") {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
+      
+      router.refresh();
+    }
+
+    handleRedirect();
+  }, [router, supabase]);
+
+  return (
+    <div className="min-h-[70vh] flex flex-col items-center justify-center gap-3">
+      <div className="w-8 h-8 border-4 border-orange-950 border-t-transparent rounded-full animate-spin" />
+      <p className="text-gray-600 font-medium text-sm">Signing you in...</p>
+    </div>
+  );
 }
