@@ -16,11 +16,19 @@ export default function LoginPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Helper function to safely get the current site URL
+  const getRedirectUrl = () => {
+    if (typeof window !== "undefined") {
+      return `${window.location.origin}/auth/callback`;
+    }
+    return `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/auth/callback`;
+  };
+
   const handleGoogleLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+        redirectTo: getRedirectUrl(),
         scopes: "email",
         queryParams: {
           access_type: "offline",
@@ -43,7 +51,7 @@ export default function LoginPage() {
           password,
           options: {
             data: { full_name: name },
-            emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+            emailRedirectTo: getRedirectUrl(),
           },
         });
 
@@ -137,7 +145,6 @@ export default function LoginPage() {
             <input
               type="password"
               required
-              minLength={6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-orange-950"
