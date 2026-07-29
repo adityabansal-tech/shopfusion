@@ -21,11 +21,7 @@ const baseConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "loremflickr.com",
-      },
-      {
-        protocol: "https",
-        hostname: "*.loremflickr.com",
+        hostname: "images.unsplash.com",
       },
     ],
   },

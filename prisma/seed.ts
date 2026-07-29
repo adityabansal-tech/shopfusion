@@ -133,61 +133,66 @@ async function main() {
     },
   });
 
-function getImageKeyword(name: string, gender: "men" | "women"): string {
+// Curated, verified real clothing photos (Unsplash License — free to use)
+const curatedImages = {
+  menShirt:
+    "https://images.unsplash.com/photo-1564595037946-dcb73763aa57?w=600&h=800&fit=crop&auto=format",
+  menJeans:
+    "https://images.unsplash.com/photo-1563902575-bc2309dc76e4?w=600&h=800&fit=crop&auto=format",
+  menJacket:
+    "https://images.unsplash.com/photo-1615818867864-4f1b2cba50da?w=600&h=800&fit=crop&auto=format",
+  womenDress:
+    "https://images.unsplash.com/photo-1583316174775-bd6dc0e9f298?w=600&h=800&fit=crop&auto=format",
+  womenTop:
+    "https://images.unsplash.com/photo-1497920261388-9c5866b65061?w=600&h=800&fit=crop&auto=format",
+};
+
+function getImageUrl(name: string, gender: "men" | "women"): string {
   const lower = name.toLowerCase();
-  const keywordMap: [string, string][] = [
-    ["shirt", "shirt"],
-    ["polo", "polo-shirt"],
-    ["jeans", "jeans"],
-    ["t-shirt", "tshirt"],
-    ["tee", "tshirt"],
-    ["blazer", "blazer"],
-    ["trouser", "trousers"],
-    ["sweatshirt", "sweatshirt"],
-    ["hoodie", "hoodie"],
-    ["jacket", "jacket"],
-    ["linen", "linen-shirt"],
-    ["track pant", "trackpants"],
-    ["bomber", "bomber-jacket"],
-    ["short", "shorts"],
-    ["sweater", "sweater"],
-    ["windbreaker", "windbreaker"],
-    ["flannel", "flannel-shirt"],
-    ["graphic", "graphic-tshirt"],
-    ["puffer", "puffer-jacket"],
-    ["rugby", "rugby-shirt"],
-    ["waistcoat", "waistcoat"],
-    ["kurta", "kurta"],
-    ["nehru", "nehru-jacket"],
-    ["jogger", "joggers"],
-    ["henley", "henley-shirt"],
-    ["overshirt", "overshirt"],
-    ["dress", "dress"],
-    ["wrap top", "blouse"],
-    ["kurti", "kurti"],
-    ["skirt", "skirt"],
-    ["jumpsuit", "jumpsuit"],
-    ["blouse", "blouse"],
-    ["palazzo", "palazzo-pants"],
-    ["anarkali", "anarkali-suit"],
-    ["sleeveless", "womens-top"],
-    ["cardigan", "cardigan"],
-    ["saree", "saree"],
-    ["off-shoulder", "womens-top"],
-    ["culotte", "culottes"],
-    ["peplum", "womens-top"],
-    ["shrug", "shrug"],
-    ["co-ord", "co-ord-set"],
-    ["chiffon", "chiffon-dress"],
-    ["bodycon", "bodycon-dress"],
-    ["tunic", "tunic"],
+
+  const jacketLike = [
+    "jacket",
+    "hoodie",
+    "sweatshirt",
+    "bomber",
+    "windbreaker",
+    "puffer",
+    "sweater",
+    "blazer",
+    "cardigan",
+    "shrug",
+  ];
+  const bottomLike = [
+    "jeans",
+    "jogger",
+    "track pant",
+    "trouser",
+    "cargo",
+    "chino",
+    "short",
+    "palazzo",
+    "culotte",
+    "skirt",
+  ];
+  const dressLike = [
+    "dress",
+    "jumpsuit",
+    "saree",
+    "anarkali",
+    "chiffon",
+    "bodycon",
+    "co-ord",
+    "tunic",
   ];
 
-  for (const [key, tag] of keywordMap) {
-    if (lower.includes(key)) return tag;
+  if (gender === "men") {
+    if (jacketLike.some((k) => lower.includes(k))) return curatedImages.menJacket;
+    if (bottomLike.some((k) => lower.includes(k))) return curatedImages.menJeans;
+    return curatedImages.menShirt;
+  } else {
+    if (dressLike.some((k) => lower.includes(k))) return curatedImages.womenDress;
+    return curatedImages.womenTop;
   }
-
-  return gender === "men" ? "mens-fashion" : "womens-fashion";
 }
 
   const buildProducts = (
@@ -207,7 +212,7 @@ function getImageKeyword(name: string, gender: "men" | "women"): string {
       const material = pick(materials, seedNum + 1);
       const price = rand(699, 4999, seedNum * 7 + 1);
       const cost = Math.round(price * 0.55);
-      const keyword = getImageKeyword(name, gender);
+      const imageUrl = getImageUrl(name, gender);
 
       products.push({
         name,
@@ -219,7 +224,7 @@ function getImageKeyword(name: string, gender: "men" | "women"): string {
         brand,
         material,
         originCountry: "India",
-        mainImgUrl: `https://loremflickr.com/600/800/${keyword}?lock=${seedNum}`,
+        mainImgUrl: imageUrl,
       });
     }
     return products;
