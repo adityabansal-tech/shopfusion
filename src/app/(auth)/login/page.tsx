@@ -77,11 +77,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex">
-      {/* Left column: form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 py-12 sm:px-10">
+    <div className="h-screen w-screen overflow-hidden flex">
+      {/* Left column: form (centered and scrollable internally if needed) */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center px-6 py-8 overflow-y-auto">
         <div className="w-full max-w-sm">
-          <Link href="/" className="flex items-center gap-2 mb-10">
+          <Link href="/" className="flex items-center gap-2 mb-8">
             <div className="w-8 h-8 bg-[#4b2e1a] rounded-full flex items-center justify-center text-white font-bold text-lg">
               S
             </div>
@@ -235,7 +235,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right column: hero image, hidden on small screens */}
-      <div className="hidden lg:block lg:w-1/2 relative bg-[#4b2e1a]">
+      <div className="hidden lg:block lg:w-1/2 relative bg-[#4b2e1a] h-full">
         <img
           src="https://images.unsplash.com/photo-1583316174775-bd6dc0e9f298?w=1200&h=1600&fit=crop&auto=format"
           alt="ShopFusion fashion"
