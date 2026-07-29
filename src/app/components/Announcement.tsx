@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import SignInButton from "./buttons/SignInButton";
+import Link from "next/link";
 
 //64
 export function Announcement({ setShow }: { setShow: () => void }) {
@@ -52,7 +52,9 @@ export function Announcement({ setShow }: { setShow: () => void }) {
             Sign up and <span className="font-medium mx-1">GET 25% OFF </span>
             for your first order.
           </li>
-          <SignInButton buttonText="Sign in up now" />
+          <Link href="/login" className="text-xs md:text-sm underline ml-1 text-[#F6BE63] underline-offset-4">
+            Sign in up now
+          </Link>
         </ul>
 
         <div className="cursor-pointer">

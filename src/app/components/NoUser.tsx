@@ -1,4 +1,4 @@
-import SignInButton from "./buttons/SignInButton";
+import Link from "next/link";
 
 const NoUser = () => {
   return (
@@ -13,10 +13,12 @@ const NoUser = () => {
         </p>
 
         <div className=" flex flex-col sm:flex-row gap-3 justify-center">
-          <SignInButton
+          <Link
+            href="/login"
             className=" px-5 py-2 rounded-md border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 "
-            buttonText="Login"
-          />
+          >
+            Login
+          </Link>
           <a
             href="/"
             className="px-5 py-2 rounded-md border border-gray-300 text-gray-700 font-medium hover:bg-gray-50"
